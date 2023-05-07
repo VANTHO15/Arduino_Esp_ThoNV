@@ -1,0 +1,18 @@
+byte a[10] = {0x03, 0x9F, 0x25, 0x0D, 0x99, 0x49, 0x41, 0x1F, 0x01, 0x09};
+volatile byte n = 0;
+void setup()
+{
+  for (byte i = 3; i <= 10; i++)
+  {
+    pinMode(i, OUTPUT);
+  }
+}
+void loop()
+{
+  byte x = a[1];
+  for (byte i = 3; i <= 10; i++)
+  {
+    digitalWrite(i, x & 0x01);
+    x = x >> 1;
+  }
+}
