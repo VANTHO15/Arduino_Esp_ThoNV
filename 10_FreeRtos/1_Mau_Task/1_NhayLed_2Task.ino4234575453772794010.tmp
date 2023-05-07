@@ -1,0 +1,60 @@
+#include <Arduino_FreeRTOS.h>
+
+void TaskDigitalRead( void *pvParameters );
+void TaskAnalogRead( void *pvParameters );
+
+void setup() {
+
+  Serial.begin(9600);
+
+  xTaskCreate(
+    TaskDigitalRead
+    ,  "DigitalRead"
+    ,  128 // ram sử dụng >=64 byte
+    ,  NULL
+    ,  2  // mức độ ưu tiên
+    ,  NULL );
+
+  xTaskCreate(
+    TaskAnalogRead
+    ,  "AnalogRead"
+    ,  128
+    ,  NULL
+    ,  1
+    ,  NULL );
+
+}
+
+void loop()
+{
+
+}
+
+
+void TaskDigitalRead( void *pvParameters __attribute__((unused)) )
+{
+  uint8_t value = 2;
+  pinMode(8, OUTPUT);
+
+  while (1)
+  {
+    digitalWrite(8, HIGH);
+    delay(1000);
+    digitalWrite(8, LOW);
+    delay(1000);
+    vTaskDelay(1);
+  }
+}
+
+void TaskAnalogRead( void *pvParameters __attribute__((unused)) )
+{
+  pinMode(9, OUTPUT);
+  while (1)
+  {
+    digitalWrite(9, HIGH);
+    delay(1000);
+    digitalWrite(9, LOW);
+    delay(1000);
+    vTaskDelay(1);
+  }
+}

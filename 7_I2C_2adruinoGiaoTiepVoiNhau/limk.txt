@@ -1,0 +1,3 @@
+1: GiaoTiep2boar  https://www.arduino.cc/en/Tutorial/MasterWriter?fbclid=IwAR1aRbARCD7KVYkwoTpLBx56MV8NnigkqoPiuOicWMMCrTmDGNJqh0a-N24
+
+2: Wire Library   https://www.arduino.cc/en/reference/wire?fbclid=IwAR3xbHgW6RnbvlRgNOC4-_DnJ-Y81SkXBjM-mFGqfXN2-cDEKPLqwyuX8Q4
