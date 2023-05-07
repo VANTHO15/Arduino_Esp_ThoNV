@@ -1,0 +1,4 @@
+TA6586     
+int A InB   cho 5V là hãm
+inA inB cho 0V là thả trỡn
+
