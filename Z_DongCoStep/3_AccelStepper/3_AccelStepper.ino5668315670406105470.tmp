@@ -1,0 +1,19 @@
+#include <AccelStepper.h>
+
+#define dirPin 22
+#define stepPin 23
+#define motorInterfaceType 1
+
+AccelStepper stepper = AccelStepper(motorInterfaceType, stepPin, dirPin);
+void setup() {
+  stepper.setMaxSpeed(1000);
+}
+void loop() {
+  for (int i = 1; i <= 1600; i++)
+  {
+    stepper.setSpeed(1600);// -400 sẽ quay nguwocj chiều
+    stepper.runSpeed();
+  }
+
+  delay(1000);
+}
