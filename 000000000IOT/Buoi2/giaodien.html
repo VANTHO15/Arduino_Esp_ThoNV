@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<meta charset="utf-8">
+<title>
+Lớp học IOT - webserver
+</title>
+
+<style>
+.button {
+  border: none;
+  color: white;
+  padding: 20px 100px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: #ff0000;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+</style>
+
+
+<script>
+
+function onclick1()
+{
+  var xhttp = new XMLHttpRequest();
+  xhttp.open('GET','/OnClick1',true);
+  xhttp.send();
+}
+
+function onclick2()
+{
+  var xhttp = new XMLHttpRequest();
+  xhttp.open('GET','/OnClick2',true);
+  xhttp.send();
+}
+
+function sendtext1()
+{
+  var xhttp = new XMLHttpRequest();
+  // lấy dữ liệu của input
+  var ssid = "E" + document.getElementById("text1").value + "F";
+  xhttp.open("GET","/sendtext1?ssid1="+ssid,true);        
+  xhttp.send();
+}
+
+function sendtext2()
+{
+  var xhttp = new XMLHttpRequest();
+  // lấy dữ liệu của input
+  var ssidd = "A" + document.getElementById("text2").value + "B";
+  xhttp.open("GET","/sendtext2?ssid2="+ssidd,true);        
+  xhttp.send();
+}
+
+</script>
+
+<body>
+
+
+<h1>Hello Webserver esp8266</h1>
+<h1>Hello lớp học IOT</h1>
+</br>
+</br>
+
+<h1>Button 1 điều khiển thiết bị 1</h1>
+<button class="button button1" type="button" onclick = "onclick1()">OnClick 1</button>
+<h1>Button 2 điều khiển thiết bị 2</h1>
+<button class="button button2" type="button" onclick = "onclick2()">OnClick 2</button>
+
+<h1> text1:
+<input id="text1"/>
+<button  type="button" onclick = "sendtext1()">Send text 1</button>
+</h1>
+
+<h1> text2:
+<input id="text2"/>
+<button  type="button" onclick = "sendtext2()">Send text 2</button>
+</h1>
+</body>
+
+
+
+
+</html>

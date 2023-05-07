@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CSS BUTTON</title>
+  
+<style> 
+
+
+
+
+body
+{
+    font-family: Time New Roman;
+    margin: 0;
+    background-color: #ff00ff;
+}
+
+input[type="checkbox"]
+{
+	position: relative;
+	width: 150px;
+    height: 40px;
+	-webkit-appearance: none;
+	background: linear-gradient(0deg,#333, #000);
+	outline: none;
+	border-radius: 20px;
+	box-shadow: 0 0 0 4px #ff0000, 0 0 0 5px #ff0000, inset 0 0 10px rgba(0,0,0,1), 0 5px 20px rgba(0,0,0,.5), inset 0 0 15px rgba(0,0,0,.2);
+}
+input:checked[type="checkbox"]
+{
+   background: linear-gradient(0deg,#6dd1ff, #20b7ff);
+   	box-shadow: 0 0 2px #6dd1ff,0 0 0 4px #ff0000, 0 0 0 5px #ff0000, inset 0 0 10px rgba(0,0,0,1), 0 5px 20px rgba(0,0,0,.5), inset 0 0 15px rgba(0,0,0,.2);
+
+}
+input[type="checkbox"]:before
+{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 40px;
+  background: linear-gradient(0deg,#000, #6b6b6b);
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px #232323;
+  transform: scale(.98,.96);
+  transition: .5s ;
+}
+input:checked[type="checkbox"]:before 
+{
+   left: 70px;
+}
+
+input[type="checkbox"]:after
+{
+  content: '';
+  position: absolute;
+  top: calc(30% - 2px);
+  left: 50px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(0deg,	#6b6b6b, #000);
+  border-radius: 50%;
+  transition: .5s ;
+}
+input:checked[type="checkbox"]:after
+{
+   background: #63cdff;
+   left: 120px;
+   box-shadow: 0 0 0 1px #13b3ff , 0 0 0 1px #13b3ff;
+}
+
+</style>
+
+
+<script>
+window.onload = updateA0;
+function updateA0()
+{
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function ()
+  {
+     if(this.readyState == 4 && this.status == 200)
+     {
+       var Data  = xhttp.responseText;
+	   
+	   document.getElementById('RX').innerHTML = Data;
+	   
+	   var TimA = Data.search("A");
+       var TimB = Data.search("B");
+       var TimC = Data.search("C"); 
+       var TimD = Data.search("D"); 
+       var TimE = Data.search("E");
+
+       var ChuoiA = Data.slice(TimA + 1 , TimB);
+       var ChuoiB = Data.slice(TimB + 1 , TimC);
+       var ChuoiC = Data.slice(TimC + 1 , TimD);
+       var ChuoiD = Data.slice(TimD + 1 , TimE);
+       
+       if(ChuoiA == "1")
+	   {
+	       document.getElementById("myCheckD0").checked = true ;
+	   }
+	   else if(ChuoiA == "0")
+	   {
+	       document.getElementById("myCheckD0").checked = false ;  
+	   }
+	   
+	   if(ChuoiB == "1")
+	   {
+	       document.getElementById("myCheckD1").checked = true ;
+	   }
+	   else if(ChuoiB == "0")
+	   {
+	       document.getElementById("myCheckD1").checked = false ;  
+	   }
+	   
+	   if(ChuoiC == "1")
+	   {
+	       document.getElementById("myCheckD2").checked = true ;
+	   }
+	   else if(ChuoiC == "0")
+	   {
+	       document.getElementById("myCheckD2").checked = false ;  
+	   }
+	    
+		
+		if(ChuoiD == "1")
+	   {
+	       document.getElementById("myCheckD3").checked = true ;
+	   }
+	   else if(ChuoiD == "0")
+	   {
+	       document.getElementById("myCheckD3").checked = false ;  
+	   }
+	   
+	   
+	   
+       
+	   
+	   
+       updateA0();
+     }         
+  }
+  xhttp.open('GET','/a0.html',true);
+  xhttp.send();
+  
+}
+   function D0()
+  {
+        
+        var checkBoxD0 = document.getElementById("myCheckD0");
+        if (checkBoxD0.checked == true)
+        {       
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('GET','/batD0.html',true);
+            xhttp.send();
+        } 
+        else 
+        {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('GET','/tatD0.html',true);
+            xhttp.send();
+        } 
+   }
+   
+   function D1()
+  {
+        
+        var checkBoxD1 = document.getElementById("myCheckD1");
+        if (checkBoxD1.checked == true)
+        {       
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('GET','/batD1.html',true);
+            xhttp.send();
+        } 
+        else 
+        {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('GET','/tatD1.html',true);
+            xhttp.send();
+        } 
+   }
+   
+   
+   function D2()
+  {
+        
+        var checkBoxD2 = document.getElementById("myCheckD2");
+        if (checkBoxD2.checked == true)
+        {       
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('GET','/batD2.html',true);
+            xhttp.send();
+        } 
+        else 
+        {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('GET','/tatD2.html',true);
+            xhttp.send();
+        } 
+   }
+   
+   
+   function D3()
+  {
+        
+        var checkBoxD3 = document.getElementById("myCheckD3");
+        if (checkBoxD3.checked == true)
+        {       
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('GET','/batD3.html',true);
+            xhttp.send();
+        } 
+        else 
+        {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('GET','/tatD3.html',true);
+            xhttp.send();
+        } 
+   }
+   
+   function TXT()
+  {
+        
+        var txt1 = document.getElementById('txt').value;
+		console.log(txt1);
+            if (txt1 == "1")
+            {
+                document.getElementById("myCheckD0").checked = true ;
+				document.getElementById("myCheckD1").checked = true ;
+				//document.getElementById("myCheckD2").checked = !document.getElementById("myCheckD2").checked;
+				//document.getElementById("myCheckD3").checked = !document.getElementById("myCheckD3").checked;
+            }
+            else  if(txt1 == "0")
+			{
+                document.getElementById("myCheckD0").checked = false ;
+				//document.getElementById("myCheckD1").checked = !document.getElementById("myCheckD1").checked;
+				//document.getElementById("myCheckD2").checked = !document.getElementById("myCheckD2").checked;
+				//document.getElementById("myCheckD3").checked = !document.getElementById("myCheckD3").checked;
+				
+            }
+   }
+  
+</script>
+  
+</head>
+<body>
+  
+  
+  <table  width="400" height="200" border="2" cellpadding="10" align="center">
+   
+  <tr>
+        <th colspan="2" bgcolor="#00FF00"> <center> <font size="5"> <span style = "color: red"> BẢNG ĐIỀU KHIỂN THIẾT BỊ </span></font></center></th>
+  </tr>
+   
+   
+  <tr>
+      <td colspan="1" > <center> <span style = "color: Blue"> <b> INPUT </b> </span> </center> </td>
+     
+      <td colspan="2" >   
+        <center>
+		    
+			<br />
+            <div id= 'RX'></div>
+            <br />
+            <input type="text" size="10" id="txt" name = "MuaVaoBang1" >
+			<br />
+			
+			<br />
+			<button id="btnCheck" type="button" class="btn btn-success" onclick="TXT()" >Check</button>
+			
+        </center>
+      </td>
+      
+  </tr>
+   
+  <tr   >
+      <td colspan="1" bgcolor="#00FF00" > <center> <span style = "color: Blue"> <b> THIẾT BỊ 1 </b> </span> </center> </td>
+     
+      <td colspan="2" bgcolor="#FFFF00">   
+        <center>
+		
+            <div class = "center">
+	            <input type="checkbox" class="checkbox" id="myCheckD0"   onclick="D0()">
+	        <div>
+			
+        </center>
+      </td>
+      
+  </tr>
+  
+  <tr>
+      <td colspan="1" bgcolor="#00FF00"> <center> <span style = "color: Blue"> <b> THIẾT BỊ 2 </b> </span> </center> </td>
+     
+      <td colspan="2" bgcolor="#FFFF00" >   
+        <center>
+		
+            <div class = "center">
+	            <input type="checkbox" class="checkbox" id="myCheckD1"   onclick="D1()">
+	        <div>
+			
+        </center>
+      </td>
+      
+  </tr>
+  
+  
+  <tr>
+      <td colspan="1" bgcolor="#00FF00"> <center> <span style = "color: Blue"> <b> THIẾT BỊ 3 </b> </span> </center> </td>
+     
+      <td colspan="2" bgcolor="#FFFF00">   
+        <center>
+		
+            <div class = "center">
+	            <input type="checkbox" class="checkbox" id="myCheckD2"   onclick="D2()">
+	        <div>
+			
+        </center>
+      </td>
+      
+  </tr>
+  
+  <tr>
+      <td colspan="1" bgcolor="#00FF00"> <center> <span style = "color: Blue"> <b> THIẾT BỊ 4 </b> </span> </center> </td>
+     
+      <td colspan="2" bgcolor="#FFFF00" >   
+        <center>
+		
+            <div class = "center">
+	            <input type="checkbox" class="checkbox" id="myCheckD3"   onclick="D3()">
+	        <div>
+			
+        </center>
+      </td>
+      
+  </tr>
+    
+  </table>
+
+ <br/>
+ 
+ <br/>
+
+</body>
+</html>

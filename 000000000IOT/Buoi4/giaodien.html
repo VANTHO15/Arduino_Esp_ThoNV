@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+<meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<title>
+Lớp học IOT - webserver
+</title>
+
+<style>
+.button {
+  border: none;
+  color: white;
+  padding: 20px 100px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: #ff0000;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+.range{
+  height: 80px;
+  width: 380px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0 65px 0 45px;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
+}
+.sliderValue{
+  position: relative;
+  width: 100%;
+}
+.sliderValue span{
+  position: absolute;
+  height: 45px;
+  width: 45px;
+  transform: translateX(-70%) scale(0);
+  font-weight: 500;
+  top: -40px;
+  line-height: 55px;
+  z-index: 2;
+  color: #fff;
+  transform-origin: bottom;
+  transition: transform 0.3s ease-in-out;
+}
+.sliderValue span.show{
+  transform: translateX(-70%) scale(1);
+}
+.sliderValue span:after{
+  position: absolute;
+  content: '';
+  height: 100%;
+  width: 100%;
+  background: #664AFF;
+  border: 3px solid #fff;
+  z-index: -1;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-bottom-left-radius: 50%;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+.field{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+.field .value{
+  position: absolute;
+  font-size: 18px;
+  color: #664AFF;
+  font-weight: 600;
+}
+.field .value.left{
+  left: -22px;
+}
+.field .value.right{
+  right: -43px;
+}
+.range input{
+  -webkit-appearance: none;
+  width: 100%;
+  height: 3px;
+  background: #ddd;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  z-index: 2222;
+}
+.range input::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+  background: #664AFF;
+  border: 1px solid #664AFF;
+  cursor: pointer;
+}
+.range input::-moz-range-thumb{
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+  background: #664AFF;
+  border: 1px solid #664AFF;
+  cursor: pointer;
+}
+</style>
+
+
+<script type="text/javascript">
+
+	var client = new Paho.MQTT.Client("mqtt.ngoinhaiot.com",2222,"web_" + parseInt(Math.random() * 100, 10));  
+	client.onConnectionLost = onConnectionLost;  
+    client.onMessageArrived = onMessageArrived; 
+	var options = { useSSL: false,userName: "toannv10291",password: "toannv10291",onSuccess: onConnect , onFailure: doFail }  
+    client.connect(options);  
+	  
+    function onConnect()
+	{
+        console.log("Connect Server mqtt.ngoinhaiot.com");
+        client.subscribe("toannv10291/maylanh");	 // nhận dữ liệu		
+    }  
+	
+	function doFail(e) {
+       console.log(e);
+    }
+ 
+    function onConnectionLost(responseObject) 
+	{
+        if (responseObject.errorCode !== 0) 
+		{
+		console.log("error");
+            console.log("onConnectionLost:" + responseObject.errorMessage);
+        }
+    } 
+	
+    function onMessageArrived(message) 
+	{
+        console.log("Data Server:" + message.payloadString);
+		var DataServer = message.payloadString;
+		document.getElementById("datavdk").innerHTML = DataServer;
+		
+		var DataJson = JSON.parse(DataServer);
+		document.getElementById("nhietdo").innerHTML = DataJson.nhietdo;
+		document.getElementById("doam").innerHTML = DataJson.doam;
+		document.getElementById("anhsang").innerHTML = DataJson.anhsang;
+  
+		if(DataJson.relay1 == 0)
+		{
+		document.getElementById("trangthairelay1").innerHTML = "OFF";
+
+		}
+		else if(DataJson.relay1 == 1)
+		{
+			document.getElementById("trangthairelay1").innerHTML = "ON";
+
+		}
+	
+		if(DataJson.relay2 == 0)
+		{
+			document.getElementById("trangthairelay2").innerHTML = "OFF";
+
+		}
+		else if(DataJson.relay2 == 1)
+		{
+			document.getElementById("trangthairelay2").innerHTML = "ON";
+		}
+		
+	}
+		
+function onclick1()
+{
+	// điều khiển thiết bị 1 A0B , A1B
+	 var thietbi1 = document.getElementById("trangthairelay1").innerHTML;
+	 console.log(thietbi1);
+	 if(thietbi1 == "OFF")
+	 {
+		// ON tb 1
+		var DataSend = "A1B";
+		console.log(DataSend); 
+		client.send("toannv10291/quat", DataSend, 2, false);
+		console.log("toannv10291/quat:" + DataSend);
+	 }
+	 else if(thietbi1 == "ON")
+	 {
+		// OFF
+		var DataSend = "A0B";
+		console.log(DataSend); 
+		client.send("toannv10291/quat", DataSend, 2, false);
+		console.log("toannv10291/quat:" + DataSend);
+	 }
+	
+}
+function onclick2()
+{
+// điều khiển thiết bị 2  C0D , C1D
+
+	// điều khiển thiết bị 1 A0B , A1B
+	 var thietbi2 = document.getElementById("trangthairelay2").innerHTML;
+	 console.log(thietbi2);
+	 if(thietbi2 == "OFF")
+	 {
+		// ON tb 1
+		var DataSend = "C1D";
+		console.log(DataSend); 
+		client.send("toannv10291/quat", DataSend, 2, false);
+		console.log("toannv10291/quat:" + DataSend);
+	 }
+	 else if(thietbi2 == "ON")
+	 {
+		// OFF
+		var DataSend = "C0D";
+		console.log(DataSend); 
+		client.send("toannv10291/quat", DataSend, 2, false);
+		console.log("toannv10291/quat:" + DataSend);
+	 }
+}
+
+
+
+function sendtext1()
+{
+	// thay đỏi dữ liệu gì đó
+
+  var text1 = "E" + document.getElementById("text1").value + "F"; 
+  var DataSend = text1;
+		console.log(DataSend); 
+		client.send("toannv10291/quat", DataSend, 2, false);
+		console.log("toannv10291/quat:" + DataSend);
+
+}
+
+function sendtext2()
+{
+
+  // lấy dữ liệu của input
+  var text2 = "G" + document.getElementById("text2").value + "H"; 
+	var DataSend = text2;
+		console.log(DataSend); 
+		client.send("toannv10291/quat", DataSend, 2, false);
+		console.log("toannv10291/quat:" + DataSend);
+
+}
+
+
+</script>
+
+<body>
+<center>
+
+<h1>Hello Webserver esp8266</h1>
+<h1>Hello lớp học IOT</h1>
+</br>
+</br>
+
+<h1>Button 1 điều khiển thiết bị 1</h1>
+<button class="button button1" type="button" onclick = "onclick1()">OnClick 1</button>
+<h1>Button 2 điều khiển thiết bị 2</h1>
+<button class="button button2" type="button" onclick = "onclick2()">OnClick 2</button>
+
+<h1> Button:
+<button class="button button1" type="button" onclick = "onclick1()">OnClick 1</button>
+<button class="button button2" type="button" onclick = "onclick2()">OnClick 2</button>
+</h1>
+<h1> text1:
+<input id="text1"/>
+<button  type="button" onclick = "sendtext1()">Send text 1</button>
+</h1>
+<h1> text2:
+<input id="text2"/>
+<button  type="button" onclick = "sendtext2()">Send text 2</button>
+</h1>
+
+<h1>Data VDK:
+  <label id= 'datavdk'>0</label> 
+</h1>
+
+<h1>Thiết bị 1:
+<label id= 'trangthairelay1'>OFF</label>   
+</h1>
+
+<h1>Thiết bị 2:
+<label id= 'trangthairelay2'>OFF</label>   
+</h1>
+
+<h1>Nhiệt Độ:
+<label id= 'nhietdo'>0</label>   
+</h1>
+
+<h1>Độ Ẩm:
+<label id= 'doam'>0</label>  
+</h1>
+ 
+<h1>Ánh sáng:
+<label id= 'anhsang'>0</label>   
+</h1>
+
+
+<div class="range">
+		
+		<div class="field">
+			<div class="value left">0</div>
+			<input id="myRange" type="range" min="0" max="200" value="0" steps="1" oninput="num.value = this.value" >	
+			<div class="value right">
+			<output id="num">0</output>
+			</div>
+		</div>
+		</br>
+		</br>
+		<button id="button_save3"  onclick="myFunctionRange()">Send range</button>
+		
+	</div>
+	</center>
+</body>
+
+
+
+
+</html>

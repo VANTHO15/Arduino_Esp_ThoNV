@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html> 
+  <html>
+   <head> 
+       <title>Controller</title> 
+       <style> 
+          body {text-align:center;background-color:LightGray; color:white}
+          input {
+            height:25px; 
+            width:270px;
+            font-size:20px;
+            margin: 10px auto;
+          }
+          #content {
+            border: white solid 1px; 
+            padding:5px;  
+            height:375px; 
+            width:330px; 
+            border-radius:20px;
+            margin: 0 auto
+          }
+          .ledstatus{
+              outline: none;
+              margin: 15px 5px;
+              width: 60px;
+              height: 60px;
+              border-radius: 50%;
+              -moz-border-radius: 50%;
+              -webkit-border-radius: 50%;
+              color:white;
+              font-size:20px;
+              font-weight: bold;
+          }
+          #ledstatus1{
+              border: solid 2px #23C48E;
+              background: #23C48E;
+          }
+          #ledstatus2{
+              border: solid 2px #ED9D00;
+              background: #ED9D00;
+          }
+          #ledstatus3{
+              border: solid 2px #5F7CD8;
+              background: #5F7CD8;
+          }
+          #ledstatus4{
+              border: solid 2px #03C0F8;
+              background: #03C0F8;
+          }
+          #ledconnect{
+              outline: none;
+              margin: 0px 5px -1px 5px;
+              width: 15px;
+              height: 15px;
+              border: solid 1px #00EE00;
+              background-color: #00EE00;
+              border-radius: 50%;
+              -moz-border-radius: 50%;
+              -webkit-border-radius: 50%;
+          }
+          .button {
+            height:65px; 
+            width:70px; 
+            margin:10px 0;
+            background-color:#3C89BC;
+            border-radius:10px;
+            outline:none;
+            color:white;
+            font-size:25px;
+            font-weight: bold;
+          }
+          .button_all{
+            height:70px; 
+            width:140px; 
+            margin:10px 0;
+            outline:none;
+            color:white;
+            font-size:20px;
+            font-weight: bold;
+          }
+          #button_on {
+            background-color:#00BB00;
+            border-radius:10px;
+          }
+          #button_off {
+            background-color:#CC3300;
+            border-radius:10px;
+          }
+          .button_setup {
+            height:30px; 
+            width:280px; 
+            margin:10px 0;
+            background-color:#3C89BC;
+            border-radius:10px;
+            outline:none;
+            color:white;
+            font-size:20px;
+            font-weight: bold;
+          }
+          .button_wifi{
+            height:50px; 
+            width:90px; 
+            margin:10px 0;
+            outline:none;
+            color:white;
+            font-size:15px;
+            font-weight: bold;
+          }
+          #button_save {
+            background-color:#00BB00;
+            border-radius:5px;
+          }
+          #button_restart {
+            background-color:#FF9900;
+            border-radius:5px;
+          }
+          #button_reset {
+            background-color:#CC3300;
+            border-radius:5px;
+          }
+       </style>
+       <meta name="viewport" content="width=device-width,user-scalable=0" charset="UTF-8">
+   </head>
+   <body> 
+      <div><h1>SMART HOME CONTROLLER</h1></div>
+      <div id="content" style="height:auto;width:500px ";> 
+        <div id="homecontrol">
+		   <table width="500" height="400" border="2" cellpadding="10" align="center">
+   
+                 <tr>
+                       <th colspan="3"> <center> <font size="10"> <span style = "color: red"> WORK  </span></font></center></th>
+                 </tr>
+   
+				<tr>
+					<td> <center> <span style = "color: Blue"> <b> Data </b> </span> </center> </td>
+						<td colspan="2" >
+								<div id= 'data'></div>   
+						</td> 
+				</tr>
+      
+ 
+			
+     
+				<tr> 
+					<td colspan="1" > <center> <span style = "color: Blue"> <b> Status </b> </span> </center> </td>  
+					<td colspan="2" >   
+						<input id="ledstatus1" class="ledstatus" type="button" value="ON"/>
+					</td>  
+				</tr>
+  
+  
+     
+			   <tr> 
+				 <td colspan="1" > <center> <span style = "color: Blue"> <b> Cycles </b> </span> </center> </td>  
+				  <td colspan="2" >   
+					 <input id="ssid"/> 
+					 </td> 
+				  </td>  
+			  </tr>
+  
+			  <tr> 
+				 <td colspan="1" > <center> <span style = "color: Blue"> <b> Current 1</b> </span> </center> </td>  
+				  <td colspan="2" >   
+					 <input id="ssid"/> 
+					 </td> 
+				  </td>  
+			  </tr>
+			  
+			  <tr> 
+				 <td colspan="1" > <center> <span style = "color: Blue"> <b> Current 2 </b> </span> </center> </td>  
+				  <td colspan="2" >   
+					 <input id="ssid"/> 
+					 </td> 
+				  </td>  
+			  </tr>
+         </table>
+		 </br>
+		 </br>
+		  <div><input class="button_setup" type="button"  value="START"/></div>
+		  
+		  
+          <div><input class="button_setup" type="button" onclick="configurewifi()" value="SETUP"/></div>  
+        </div>
+        
+        <div id="wifisetup" style="height:auto;width:500px ";>
+          <table width="500" height="400" border="2" cellpadding="10" align="center">
+   
+                 <tr>
+                       <th colspan="3"> <center> <font size="10"> <span style = "color: red">SETUP  </span></font></center></th>
+                 </tr>
+   
+				<tr>
+					<td> <center> <span style = "color: Blue"> <b> Data </b> </span> </center> </td>
+						<td colspan="2" >
+								<div id= 'data'></div>   
+						</td> 
+				</tr>
+      
+ 
+			
+     
+				<tr> 
+					<td colspan="1" > <center> <span style = "color: Blue"> <b> On Time </b> </span> </center> </td>  
+					<td colspan="2" >   
+						<input id="ssid"/> 
+					</td>  
+				</tr>
+  
+  
+     
+			   <tr> 
+				 <td colspan="1" > <center> <span style = "color: Blue"> <b> OFF Time </b> </span> </center> </td>  
+				  <td colspan="2" >   
+					 <input id="ssid"/> 
+					 </td> 
+				  </td>  
+			  </tr>
+			  
+			  <tr> 
+				 <td colspan="1" > <center> <span style = "color: Blue"> <b> Count </b> </span> </center> </td>  
+				  <td colspan="2" >   
+					 <input id="ssid"/> 
+					 </td> 
+				  </td>  
+			  </tr>
+  
+			  <tr> 
+				 <td colspan="1" > <center> <span style = "color: Blue"> <b> Current 1</b> </span> </center> </td>  
+				  <td colspan="2" >   
+					 <button id="button_on" class="button_all" onclick="getbuttonall('on')">Save Current 1</button>
+					 
+					 <button id="button_on" class="button_all" onclick="getbuttonall('on')">Show Current 1</button>
+					 </td> 
+				  </td>  
+			  </tr>
+			  
+			  <tr> 
+				 <td colspan="1" > <center> <span style = "color: Blue"> <b> Current 2 </b> </span> </center> </td>  
+				  <td colspan="2" >   
+					<button id="button_on" class="button_all" onclick="getbuttonall('on')">Save Current 2</button>
+					<button id="button_on" class="button_all" onclick="getbuttonall('on')">Show Current 2</button>
+					 </td> 
+				  </td>  
+			  </tr>
+         </table>
+         
+          <div><input class="button_setup" type="button" onclick="backHOME()" value="Back"/></div>	  
+        </div>
+		</br>
+		</br>
+		
+   
+      </div>
+      <div id="footer">
+        <p><i>Copyright by <b>Thầy Huy</b> 
+          <br>Email: <b>thayhuy@gmail.com</b></i>
+        </p>
+      </div>
+      <script>
+        //-----------Hàm khởi tạo đối tượng request----------------
+
+        //===================Khởi tạo ban đầu khi load trang=============
+        window.onload = function()
+		{
+          document.getElementById("homecontrol").style.display = "block";
+          document.getElementById("wifisetup").style.display = "none";
+
+        }
+       
+  
+ 
+        //----------Hiển thị trạng thái Led lên trình duyệt---------------------
+        function updateLedstatus(D1,D2,D3,D4){
+          if(D1 == "1"){
+              document.getElementById("ledstatus1").value = "OFF";
+              document.getElementById("ledstatus1").style.background = "#222222";
+            }else{
+              document.getElementById("ledstatus1").value = "ON";
+              document.getElementById("ledstatus1").style.background = "#23C48E";
+            }
+            if(D2 == "1"){
+              document.getElementById("ledstatus2").value = "OFF";
+              document.getElementById("ledstatus2").style.background = "#222222";
+            }else{
+              document.getElementById("ledstatus2").value = "ON";
+              document.getElementById("ledstatus2").style.background = "#ED9D00";
+            }
+            if(D3 == "1"){
+              document.getElementById("ledstatus3").value = "OFF";
+              document.getElementById("ledstatus3").style.background = "#222222";
+            }else{
+              document.getElementById("ledstatus3").value = "ON";
+              document.getElementById("ledstatus3").style.background = "#5F7CD8";
+            }
+            if(D4 == "1"){
+              document.getElementById("ledstatus4").value = "OFF";
+              document.getElementById("ledstatus4").style.background = "#222222";
+            }else{
+              document.getElementById("ledstatus4").value = "ON";
+              document.getElementById("ledstatus4").style.background = "#03C0F8";
+            }
+        }
+
+        function configurewifi(){
+          document.getElementById("homecontrol").style.display = "none";
+          document.getElementById("wifisetup").style.display = "block";
+        }
+       
+       //--------Load lại trang để quay về Home control-------------------------
+        function backHOME(){
+          window.onload();
+        }
+       //----------------------------CHECK EMPTY--------------------------------
+       
+       //------------------------------------------------------------------------
+      </script>
+   </body> 
+  </html>
